@@ -3,6 +3,9 @@ import requests
 from requests.adapters import HTTPAdapter, Retry
 
 
+import os
+
+
 class SongDoesntExistError(Exception):
     pass
 
@@ -11,7 +14,7 @@ class SoundCloudAPIClient:
     BASE_URL = "https://api-widget.soundcloud.com/"
     RESOLVE_ATTRIBUTE = "resolve"
     SEARCH_ATTRIBUTE = "search"
-    CLIENT_ID = "LBCcHmRB8XSStWL6wKH2HPACspQlXg2P"
+    CLIENT_ID = os.environ.get("SOUNDCLOUD_CLIENT_ID")
 
     def __init__(self):
         self.session = requests.Session()
@@ -45,7 +48,8 @@ class SoundCloudAPIClient:
             if len(search_result["collection"]) != 0:
                 return search_result["collection"][0]
 
-        raise SongDoesntExistError(f"Unable to obtain song from query: {query}")
+        raise SongDoesntExistError(
+            f"Unable to obtain song from query: {query}")
 
     def get_verified_song(self, song_name, artist_name):
         query = " ".join((artist_name, song_name))
