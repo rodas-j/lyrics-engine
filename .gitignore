@@ -1,0 +1,9 @@
+out
+.venv
+.vscode
+__pycache__
+.cache
+std.log
+buggy_lyrics.json
+logs
+.env
