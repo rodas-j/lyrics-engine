@@ -35,8 +35,10 @@ flags.DEFINE_bool("include", False, "Include as valid guess")
 
 # Mutually Exclusive Flags
 
-flags.mark_flags_as_mutual_exclusive(["title", "playlist_id", "path"], required=True)
-flags.mark_flags_as_mutual_exclusive(["artist", "playlist_id", "path"], required=True)
+flags.mark_flags_as_mutual_exclusive(
+    ["title", "playlist_id", "path"], required=True)
+flags.mark_flags_as_mutual_exclusive(
+    ["artist", "playlist_id", "path"], required=True)
 
 
 def get_song_lyricle(title, artist, include):
@@ -54,9 +56,11 @@ def get_song_lyricle(title, artist, include):
             LyricleJSONSerializer.generate_song_list_from_data
             valid_guesses = LyricleJSONSerializer.append_valid_guesses(
                 initial_valid_guesses,
-                LyricleJSONSerializer.generate_song_list_from_data([song_data]),
+                LyricleJSONSerializer.generate_song_list_from_data([
+                                                                   song_data]),
             )
-            LyricleJSONSerializer.to_json_file(valid_guesses, f"all_validGuesses.json")
+            LyricleJSONSerializer.to_json_file(
+                valid_guesses, f"all_validGuesses.json")
 
     except SongDoesntExistError:
         raise SongDoesntExistError(
@@ -75,7 +79,8 @@ def main(argv):
     del argv  # Unused.
 
     if FLAGS.playlist_id is not None:
-        song_data_list = Lyricle.generate_lyricles_from_playlist(FLAGS.playlist_id)
+        song_data_list = Lyricle.generate_lyricles_from_playlist(
+            FLAGS.playlist_id)
         song_choices = LyricleJSONSerializer.generate_song_list_from_data(
             song_data_list
         )
@@ -84,7 +89,8 @@ def main(argv):
         )
 
         if FLAGS.output is not None:
-            LyricleJSONSerializer.to_json_file(song_choices, f"{FLAGS.output}.json")
+            LyricleJSONSerializer.to_json_file(
+                song_choices, f"{FLAGS.output}.json")
             LyricleJSONSerializer.to_json_file(
                 valid_guesses, f"{FLAGS.output}_validGuesses.json"
             )
@@ -103,11 +109,11 @@ def main(argv):
         )
 
         if FLAGS.output is not None:
-            LyricleJSONSerializer.to_json_file(song_choices, f"{FLAGS.output}.json")
+            LyricleJSONSerializer.to_json_file(
+                song_choices, f"{FLAGS.output}.json")
             LyricleJSONSerializer.to_json_file(
                 valid_guesses, f"{FLAGS.output}_validGuesses.json"
             )
-            print("It shoudl be working")
             return
     json_string = get_song_lyricle(FLAGS.title, FLAGS.artist, FLAGS.include)
 
