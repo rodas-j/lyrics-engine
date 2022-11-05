@@ -15,6 +15,7 @@ Create a `.env` file and add two environment variables as follows:
 ```text
 GENIUS_TOKEN="Lyrics Genius TOKEN"
 LYRICS_TOKEN="Lyrics.com TOKEN"
+SOUNDCLOUD_CLIENT_ID="Soundcloud.com CLIENT ID"
 ```
 
 These TOKENS can be found on their respective official sites.
